@@ -9,6 +9,7 @@ educational purposes, since they clearly show different elements and flow of dat
 
 ## History
 ChemEco was initially implemented to interface with Python libraries that are being developed in Hachmann group, i.e, ChemML and ChemLG.
-The main focus of those packages is on the molecular and materials data-driven research. That's why the name of the package express the word chem (chemistry).
+The main focus of those packages is on the molecular and materials data-driven research.
+That's why the name of all these packages express the word chem (chemistry).
 However, we later used the code structure to interface with even more Python libraries or commercial software.
 Thus, ChemEco now is able to carry out data mining and machine learning tasks on a broader range of domain applications.
