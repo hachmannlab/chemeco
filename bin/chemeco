@@ -3,11 +3,11 @@
 import argparse
 from chemeco.wrappers import WrapperRun
 
-parser = argparse.ArgumentParser(description="ChemML will be started by specifying a script file as a todo list")
+parser = argparse.ArgumentParser(description="ChemEco runs an input file that follows the instructions to describe the data mining workflow.")
 parser.add_argument("-i", type=str, required=True,
-                    help="input file: the path to the chemml wrapper's input file name and its format")
+                    help="input file: the path to the ChemEco's input file name and its format.")
 parser.add_argument("-o", type=str, required=True,
-                    help="output directory: if it's not unique an incremental foldername will be created")
+                    help="output directory: the path to the output directory. If it's not unique an incremental foldername will be created.")
 args = parser.parse_args()
 SCRIPT_NAME = args.i
 output_directory = args.o
