@@ -1,14 +1,19 @@
 #!/usr/bin/env python
 
+# python 2 and 3 compatible
+from __future__ import print_function
+from builtins import range
+
 import sys
 import os
 import time
 import copy
 import inspect
 
+
 from .. import __version__, __author__
 from .pandas_pd import pdw
-from .cheml_cml import cmlw
+from .chemml_cml import cmlw
 from .sklearn_skl import sklw
 from .tensorflow_tf import tfw
 
@@ -33,9 +38,9 @@ def banner():
     # str.append(DESCRIPTION)
     # str.append("")
 
-    print
+    print('\n')
     for line in str:
-        print line
+        print(line)
 
 class Parser(object):
     """
@@ -119,7 +124,7 @@ class Parser(object):
 
     def _options(self, blocks):
         cmls = []
-        for item in xrange(len(blocks)):
+        for item in range(len(blocks)):
             block = blocks[item]
             function = self._functions(block[0])
             parameters, send, recv = self._parameters(block,item)
@@ -136,52 +141,52 @@ class Parser(object):
             line = '%s\n' %(block['task'])
             line = line.rstrip("\n")
             tmp_str =  '%i'%item+' '*(4-len(str(item)))+'Task: '+line
-            print tmp_str
+            print(tmp_str)
             line = '<<<<<<<'
             line = line.rstrip("\n")
             tmp_str = '        ' + line
-            print tmp_str
+            print(tmp_str)
             if len(block['parameters']) > 0 :
                 for param in block['parameters']:
                     line = '%s = %s\n'%(param,block['parameters'][param])
                     line = line.rstrip("\n")
                     tmp_str =  '        '+line
-                    print tmp_str
+                    print(tmp_str)
             else:
                 line = ' :no parameter passed: set to default values if available'
                 line = line.rstrip("\n")
                 tmp_str =  '        ' + line
-                print tmp_str
+                print(tmp_str)
             line = '>>>>>>>'
             line = line.rstrip("\n")
             tmp_str =  '        ' + line
-            print tmp_str
+            print(tmp_str)
             if len(block['send']) > 0:
                 for param in block['send']:
                     line = '%s -> send (id=%i)\n' %(param[0],param[1])
                     line = line.rstrip("\n")
                     tmp_str =  '        ' + line
-                    print tmp_str
+                    print(tmp_str)
             else:
                 line = ' :nothing to send:'
                 line = line.rstrip("\n")
                 tmp_str =  '        ' + line
-                print tmp_str
+                print(tmp_str)
             if len(block['recv']) > 0:
                 for param in block['recv']:
                     line = '%s <- recv (id=%i)\n' %(param[0],param[1])
                     line = line.rstrip("\n")
                     tmp_str = '        ' + line
-                    print tmp_str
+                    print(tmp_str)
             else:
                 line = ' :nothing to receive:'
                 line = line.rstrip("\n")
                 tmp_str = '        ' + line
-                print tmp_str
+                print(tmp_str)
             line = ''
             line = line.rstrip("\n")
             tmp_str = '        ' + line
-            print tmp_str
+            print(tmp_str)
 
     def transform(self, cmls):
         """
@@ -210,7 +215,7 @@ class Parser(object):
                 msg = 'identified non unique send id (id#%i)'%id
                 raise NameError(msg)
         if set(send_ids) != set(recv_ids):
-            print set(send_ids),set(recv_ids)
+            print(set(send_ids),set(recv_ids))
             msg = 'missing pairs of send and receive id:\n send IDs:%s\n recv IDs:%s\n'%(str(set(send_ids)),str(set(recv_ids)))
             raise ValueError(msg)
 
@@ -263,7 +268,7 @@ class Wrapper(LIBRARY):
         self.ImpOrder = ImpOrder
         self.cmls = cmls
         tmp_str = "=================================================\n"
-        print tmp_str
+        print(tmp_str)
         self._checker()
 
     def _checker(self):
@@ -304,9 +309,9 @@ class Wrapper(LIBRARY):
             function = parameters.pop('function')
             start_time = time.time()
             tmp_str =  "======= block#%i: (%s, %s)" % (iblock + 1, host, function)
-            print tmp_str
+            print(tmp_str)
             tmp_str = "| run ...\n"
-            print tmp_str
+            print(tmp_str)
             if host == 'sklearn':
                 # check methods
                 legal_functions = [klass[0] for klass in inspect.getmembers(sklw)]
@@ -358,16 +363,16 @@ class Wrapper(LIBRARY):
 
             end_time = tot_exec_time_str(start_time)
             tmp_str = "| ... done!"
-            print tmp_str
+            print(tmp_str)
             tmp_str = '| '+end_time
-            print tmp_str
+            print(tmp_str)
             tmp_str = "=======\n\n"
-            print tmp_str
+            print(tmp_str)
         self._save_references()
         tmp_str = "Total " + tot_exec_time_str(self.Base.start_time)
-        print tmp_str
+        print(tmp_str)
         tmp_str = std_datetime_str() + '\n'
-        print tmp_str
+        print(tmp_str)
 
 class Settings(object):
     """
@@ -456,7 +461,7 @@ def run(INPUT_FILE, OUTPUT_DIRECTORY):
     sys.stdout = Logger(logfile)
     sys.stderr = Error(errorfile)
     banner()
-    print tmp_str + '\n'
+    print(tmp_str + '\n')
     settings.write_InputScript(script)
     cmls, ImpOrder, CompGraph = Parser(script).fit()
     # print cmls
