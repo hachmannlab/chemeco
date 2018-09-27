@@ -22,7 +22,7 @@ class container_page(object):
         self.block_params = block_params
         # IO_refresher will be added later for each function block
 
-class wrapperGUI(object):
+class WrapperGUI(object):
     def __init__(self):
         self.tasks, self.combinations = tshf()  # task, subtask, host, function connections; keep the tasks for the order
         self.blocks = {}  # similar to cmls in the parser, {'task':{}, 'subtask':{}, 'host':{}, 'function':{}, 'parameters':{}, 'send':{'NA':'here'}, 'recv':{'NA':'here'} }
