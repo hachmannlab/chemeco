@@ -1,6 +1,7 @@
 import setuptools
 from os import path
 # import versioneer
+import chemeco
 
 here = path.abspath(path.dirname(__file__))
 
@@ -11,8 +12,9 @@ with open(path.join(here, 'README.md')) as f:
 if __name__ == "__main__":
     setuptools.setup(
         name='chemeco',
-        version="0.1.0",
-        description='A General-Purpose Framework for Data Mining Without Coding',
+        version=chemeco.__version__,
+        description=
+        'A General-Purpose Framework for Data Mining Without Coding',
         long_description=long_description,
         author='Mojtaba Haghighatlari, Johannes Hachmann',
         author_email='mojtabah@buffalo.edu, hachmann@buffalo.edu',
@@ -22,9 +24,14 @@ if __name__ == "__main__":
         },
         license='BSD-3C',
         packages=setuptools.find_packages(),
-        scripts=['lib/chemeco'],
-
+        scripts=['bin/chemeco'],
         install_requires=[
+            'future',
+            'six',
+            'graphviz',
+            'ipywidgets',
+            
+            'chemml',
         ],
         extras_require={
             'docs': [
@@ -40,18 +47,17 @@ if __name__ == "__main__":
                 'tox',
             ],
         },
-
         tests_require=[
             'pytest',
             'pytest-cov',
             'pytest-pep8',
             'tox',
         ],
-
         classifiers=[
             'Development Status :: 4 - Beta',
             'Intended Audience :: Science/Research',
             'Programming Language :: Python :: 2.7',
+            'Programming Language :: Python :: 3.5',
         ],
         zip_safe=False,
     )
