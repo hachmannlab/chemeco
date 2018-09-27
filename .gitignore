@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.iws
 
 # C extensions
 *.so
@@ -11,6 +12,9 @@ __pycache__/
 **/../.idea
 **/.idea/
 .idea/
+
+# documentation
+_build/
 
 # Distribution / packaging
 .Python
@@ -30,6 +34,7 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+/conda_recipe/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -77,6 +82,7 @@ target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+*.ipynb
 
 # pyenv
 .python-version
