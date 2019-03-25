@@ -281,8 +281,8 @@ class LIBRARY(object):
     Do not instantiate this class
     """
     def references(self,host,function):
-        from cheml.chem.magpie_python import __all__ as magpie_all
-        from cheml.visualization import __all__ as matplotlib_all
+        from chemml.chem.magpie_python import __all__ as magpie_all
+        from chemml.visualization import __all__ as matplotlib_all
 
         # numpy
         ref_g = "https://github.com/numpy/numpy"
