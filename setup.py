@@ -28,10 +28,12 @@ if __name__ == "__main__":
         install_requires=[
             'future',
             'six',
+            'numpy',
+            'pandas',
             'graphviz',
             'ipywidgets',
-            
             'chemml',
+            'scikit-learn'
         ],
         extras_require={
             'docs': [
