@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import ipywidgets as widgets
 from IPython.display import display
 # from IPython.display import clear_output
@@ -156,9 +158,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe7.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe7.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -204,9 +206,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe8.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe8.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -252,9 +254,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe9.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe9.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -308,9 +310,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe1.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe1.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -356,9 +358,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe2.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe2.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -404,9 +406,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe3.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe3.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -452,9 +454,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe4.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe4.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -507,9 +509,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe5.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe5.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -555,9 +557,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe6.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe6.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -610,9 +612,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe11.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe11.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -658,9 +660,9 @@ class WrapperGUI(object):
                 self.block_id = max(self.pages)
                 selectTe12.icon = 'check'
             except Exception as err:
-                print "Invalid configuration file ..."
-                print "    IOError: %s"%err.message
-                print "... Not loaded!"
+                print( "Invalid configuration file ...")
+                print( "    IOError: %s"%err.message)
+                print( "... Not loaded!")
                 selectTe12.icon = 'remove'
                 rm = [i for i in self.pages if i not in old]
                 for ib in rm:
@@ -706,9 +708,9 @@ class WrapperGUI(object):
         #         self.block_id = max(self.pages)
         #         selectTeMHL.icon = 'check'
         #     except Exception as err:
-        #         print "Invalid configuration file ..."
-        #         print "    IOError: %s"%err.message
-        #         print "... Not loaded!"
+        #         print( "Invalid configuration file ...")
+        #         print( "    IOError: %s"%err.message)
+        #         print( "... Not loaded!")
         #         selectTeMHL.icon = 'remove'
         #         rm = [i for i in self.pages if i not in old]
         #         for ib in rm:
@@ -774,9 +776,9 @@ class WrapperGUI(object):
                     self.block_id = max(self.pages)
                     selectE.icon = 'check'
                 except Exception as err:
-                    print "Invalid configuration file ..."
-                    print "    IOError: %s"%err.message
-                    print "... Not loaded!"
+                    print( "Invalid configuration file ...")
+                    print( "    IOError: %s"%err.message)
+                    print( "... Not loaded!")
                     selectE.icon = 'remove'
                     rm = [i for i in self.pages if i not in old]
                     for ib in rm:
@@ -808,21 +810,21 @@ class WrapperGUI(object):
                     with open(path, 'w') as config:
                         for line in lines:
                             config.write(line)
-                    print "\nThe ChemML Wrapper's config file has been successfully saved ..."
-                    print "    config file path: %s" % path
-                    print "    current directory: %s" % os.getcwd()
-                    print "    what's next? run the ChemML Wrapper using the config file with the following codes:"
-                    print "        >>> from cheml import wrapperRUN"
-                    print "        >>> wrapperRUN(INPUT_FILE = 'path_to_the_config_file', OUTPUT_DIRECTORY = '%s')" % outdir.value
-                    print "... you can also create a python script of the above codes and run it on any cluster that ChemML is installed."
+                    print( "\nThe ChemML Wrapper's config file has been successfully saved ...")
+                    print( "    config file path: %s" % path)
+                    print( "    current directory: %s" % os.getcwd())
+                    print( "    what's next? run the ChemML Wrapper using the config file with the following codes:")
+                    print( "        >>> from cheml import wrapperRUN")
+                    print( "        >>> wrapperRUN(INPUT_FILE = 'path_to_the_config_file', OUTPUT_DIRECTORY = '%s')" % outdir.value)
+                    print( "... you can also create a python script of the above codes and run it on any cluster that ChemML is installed.")
                     save.icon = 'check'
                 else:
-                    print "The config file is empty ..."
-                    print "... Not saved!"
+                    print( "The config file is empty ...")
+                    print( "... Not saved!")
                     save.icon = 'remove'
             except:
-                print "The config file path or name is not supported ..."
-                print "... Not saved!"
+                print( "The config file path or name is not supported ...")
+                print( "... Not saved!")
                 save.icon = 'remove'
 
         header = widgets.Label(value='Choose how to start:', layout=widgets.Layout(width='50%'))
@@ -843,11 +845,11 @@ class WrapperGUI(object):
         line = widgets.HBox([],layout=widgets.Layout(height='0px', border='dotted black 1px',margin='20px 0px 0px 0px'))
         note = widgets.HTML(value="<b>Note:</b> Don't forget to print/save the ChemML Wrapper's input file (configuration script) when you are done with editing:",
                             layout=widgets.Layout(margin='10px 0px 0px 0px'))
-        show = widgets.Button(description="Print Script", layout=widgets.Layout(width= "120px",margin='10px 0px 0px 0px'))
+        show = widgets.Button(description="print Script", layout=widgets.Layout(width= "120px",margin='10px 0px 0px 0px'))
         show.style.button_color = 'lightblue'
         show.on_click(on_show_clicked)
         txt = widgets.Textarea(
-            placeholder="Press the 'Print Script' button to print the ChemML Wrapper's configuration script here. Copy and save it for the future use.",
+            placeholder="Press the 'print Script' button to print the ChemML Wrapper's configuration script here. Copy and save it for the future use.",
             disabled=False,
             layout=widgets.Layout(width='100%',margin='0px 0px 0px 10px'))
         hbox1 = widgets.HBox([show,txt],layout=widgets.Layout(margin='10px 0px 0px 0px',align_items='center', justify_content = 'center'))
@@ -895,7 +897,7 @@ class WrapperGUI(object):
         self.pages[id] = container_page('Home page', id, self.home_page_VBox)
         self.display_accordion(id)
         display(self.accordion)
-        print 'The computation graph will be displayed here:'
+        print( 'The computation graph will be displayed here:')
         display(self.graph)
 
     ################################
@@ -1645,7 +1647,7 @@ class WrapperGUI(object):
                 msg = 'identified non unique send id (id#%i)'%id
                 raise NameError(msg)
         if set(send_ids) != set(recv_ids):
-            print set(send_ids),set(recv_ids)
+            print( set(send_ids),set(recv_ids))
             msg = 'missing pairs of send and receive id:\n send IDs:%s\n recv IDs:%s\n'%(str(set(send_ids)),str(set(recv_ids)))
             raise ValueError(msg)
 
