@@ -23,7 +23,7 @@ if __name__ == "__main__":
         },
         license='BSD-3C',
         packages=setuptools.find_packages(),
-        scripts=['lib/chemecoshell'],
+        scripts=['lib/chemecoshell', 'webapp/chemecoweb'],
         install_requires=[
             'future',
             'six',
