@@ -33,7 +33,10 @@ if __name__ == "__main__":
             'ipywidgets',
             'widgetsnbextension',
             'chemml',
-            'scikit-learn'
+            'scikit-learn',
+            'plotly',
+            'dash == 0.42.0',
+            'dash-daq == 0.1.0'
         ],
         extras_require={
             'docs': [
