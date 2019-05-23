@@ -5,6 +5,6 @@ last modified date: May 10, 2016
 
 # from test import test
 
-from .engine import run as WrapperRun
+from chemeco.wrappers.engine import run as ChemEcoRun
 
 __all__ = []

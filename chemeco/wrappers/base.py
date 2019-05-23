@@ -319,7 +319,7 @@ class LIBRARY(object):
                 self.refs['BagofBonds'] = {'url': ref_g, 'paper': ref_p}
             elif function in ['MLP','MLP_sklearn']:
                 ref_g = "https://github.com/fchollet/keras"
-                ref_p = "@misc{chollet2015keras,title={Keras},author={Chollet, Fran\c{c}ois and others},year={2015},publisher={GitHub},howpublished={\url{https://github.com/keras-team/keras}},}"
+                ref_p = "@misc{chollet2015keras,title={Keras},author={Chollet, Francois and others},year={2015},publisher={GitHub},howpublished={https://github.com/keras-team/keras},}"
                 self.refs['keras'] = {'url': ref_g, 'paper': ref_p}
             elif function in ['GA_DEAP']:
                 ref_g = "https://github.com/deap/deap"

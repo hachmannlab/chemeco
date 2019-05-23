@@ -8,9 +8,9 @@ from graphviz import Digraph
 import copy
 import os
 
-from ..wrappers.database import sklearn_db, cheml_db, pandas_db
-from ..wrappers.database.TSHF import tshf
-from ..utils import isint
+from chemeco.wrappers.database import sklearn_db, cheml_db, pandas_db
+from chemeco.wrappers.database.TSHF import tshf
+from chemeco.utils import isint
 
 ##########################################################
 # Todo: bring back receivers - no need another recursive function for bidR; (currentbids - bidS = bidR)
@@ -24,7 +24,7 @@ class container_page(object):
         self.block_params = block_params
         # IO_refresher will be added later for each function block
 
-class WrapperGUI(object):
+class ChemEcoNotebook(object):
     def __init__(self):
         self.tasks, self.combinations = tshf()  # task, subtask, host, function connections; keep the tasks for the order
         self.blocks = {}  # similar to cmls in the parser, {'task':{}, 'subtask':{}, 'host':{}, 'function':{}, 'parameters':{}, 'send':{'NA':'here'}, 'recv':{'NA':'here'} }
@@ -814,7 +814,7 @@ class WrapperGUI(object):
                     print( "    config file path: %s" % path)
                     print( "    current directory: %s" % os.getcwd())
                     print( "    what's next? run the ChemML Wrapper using the config file with the following codes:")
-                    print( "        >>> from cheml import wrapperRUN")
+                    print( "        >>> from chemeco import ChemEcoRun")
                     print( "        >>> wrapperRUN(INPUT_FILE = 'path_to_the_config_file', OUTPUT_DIRECTORY = '%s')" % outdir.value)
                     print( "... you can also create a python script of the above codes and run it on any cluster that ChemML is installed.")
                     save.icon = 'check'
@@ -860,9 +860,9 @@ class WrapperGUI(object):
         # f_label = widgets.Label('config file name:',layout=widgets.Layout(width='100%',margin='20px 0px 0px 20px'))
         style = {'description_width': 'initial'}
         filename = widgets.Text(
-            value='cheml_config.txt',
+            value='chemeco_config.txt',
             description = 'config file name:',
-            placeholder='cheml_config.txt',
+            placeholder='chemeco_config.txt',
             disabled=False,
             style= style,
             layout=widgets.Layout(margin='20px 0px 0px 20px'))
@@ -984,18 +984,14 @@ class WrapperGUI(object):
     def db_extract_function(self, host, function):
         if host == 'sklearn':
             metadata = getattr(sklearn_db, function)()
-        elif host == 'cheml':
+        elif host == 'chemml':
             metadata = getattr(cheml_db, function)()
         elif host == 'pandas':
             metadata = getattr(pandas_db, function)()
-        wparams = {i:copy.deepcopy(vars(metadata.WParameters)[i]) for i in vars(metadata.WParameters).keys() if
-                     i not in ('__module__', '__doc__')}
-        fparams = {i:copy.deepcopy(vars(metadata.FParameters)[i]) for i in vars(metadata.FParameters).keys() if
-                     i not in ('__module__', '__doc__')}
-        inputs = {i: copy.deepcopy(vars(metadata.Inputs)[i]) for i in vars(metadata.Inputs).keys() if
-                  i not in ('__module__', '__doc__')}
-        outputs = {i: copy.deepcopy(vars(metadata.Outputs)[i]) for i in vars(metadata.Outputs).keys() if
-                   i not in ('__module__', '__doc__')}
+        wparams = {i:copy.deepcopy(vars(metadata.WParameters)[i]) for i in vars(metadata.WParameters).keys() if '__' not in i}
+        fparams = {i:copy.deepcopy(vars(metadata.FParameters)[i]) for i in vars(metadata.FParameters).keys() if '__' not in i}
+        inputs = {i: copy.deepcopy(vars(metadata.Inputs)[i]) for i in vars(metadata.Inputs).keys() if '__' not in i}
+        outputs = {i: copy.deepcopy(vars(metadata.Outputs)[i]) for i in vars(metadata.Outputs).keys() if '__' not in i}
         return wparams, fparams, inputs, outputs, metadata
 
     def custom_function_IO_w(self):
@@ -1532,7 +1528,7 @@ class WrapperGUI(object):
     def _db_extract_function(self, host, function):
         if host == 'sklearn':
             metadata = getattr(sklearn_db, function)()
-        elif host == 'cheml':
+        elif host == 'chemml':
             metadata = getattr(cheml_db, function)()
         wparams = {i:copy.deepcopy(vars(metadata.WParameters)[i]) for i in vars(metadata.WParameters).keys() if
                      i not in ('__module__', '__doc__')}
@@ -1654,6 +1650,7 @@ class WrapperGUI(object):
         # make graph
         reformat_send = {k[1]:[v,k[0]] for k,v in send_all}
         self.comp_graph += [tuple(reformat_send[k[1]]+[v,k[0]]) for k,v in recv_all]
+
 
 
 # examples for dictionaries' fomrat:

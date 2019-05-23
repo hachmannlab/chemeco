@@ -323,8 +323,8 @@ class GridSearchCV(BASE):
         if dfy is not None:
             dfy, _ = self.data_check('dfy', dfy, ndim=1, n0=dfx.shape[0], n1=None, format_out='ar')
 
-        print dfx.shape
-        print dfy.shape
+        print( dfx.shape)
+        print( dfy.shape)
 
         # step4: import module and make API
         try:

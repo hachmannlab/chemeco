@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import inspect
 
 def value(string):
@@ -16,7 +18,7 @@ assert len(a)==len(d)
 for i in range(len(a)):
     v = d[i]
     if value(v):
-        print "%s = Parameter('%s', %s)" % (a[i], a[i], str(d[i]))
+        print( "%s = Parameter('%s', %s)" % (a[i], a[i], str(d[i])))
     else:
-        print "%s = Parameter('%s', '%s')" % (a[i], a[i], str(d[i]))
+        print( "%s = Parameter('%s', '%s')" % (a[i], a[i], str(d[i])))
 

@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import pandas as pd
 import numpy as np
 import os
@@ -12,7 +14,7 @@ from ..base import BASE
 class XYZreader(BASE):
     def fit(self):
         try:
-            from cheml.initialization import XYZreader
+            from chemml.initialization import XYZreader
             model = XYZreader(**self.parameters)
             molecules = model.read()
         except Exception as err:
@@ -37,7 +39,7 @@ class XYZreader(BASE):
 class load_cep_homo(BASE):
     def fit(self):
         try:
-            from cheml.datasets import load_cep_homo
+            from chemml.datasets import load_cep_homo
             smiles,homo = load_cep_homo()
         except Exception as err:
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(err).__name__ + ': ' + str(err.message)
@@ -60,7 +62,7 @@ class load_cep_homo(BASE):
 class load_organic_density(BASE):
     def fit(self):
         try:
-            from cheml.datasets import load_organic_density
+            from chemml.datasets import load_organic_density
             smiles,density,features = load_organic_density()
         except Exception as err:
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(err).__name__ + ': ' + str(err.message)
@@ -87,7 +89,7 @@ class load_organic_density(BASE):
 class load_xyz_polarizability(BASE):
     def fit(self):
         try:
-            from cheml.datasets import load_xyz_polarizability
+            from chemml.datasets import load_xyz_polarizability
             coordinates, pol = load_xyz_polarizability()
         except Exception as err:
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(err).__name__ + ': ' + str(err.message)
@@ -110,7 +112,7 @@ class load_xyz_polarizability(BASE):
 class load_comp_energy(BASE):
     def fit(self):
         try:
-            from cheml.datasets import load_comp_energy
+            from chemml.datasets import load_comp_energy
             entries, df = load_comp_energy()
         except Exception as err:
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(err).__name__ + ': ' + str(err.message)
@@ -133,7 +135,7 @@ class load_comp_energy(BASE):
 class load_crystal_structures(BASE):
     def fit(self):
         try:
-            from cheml.datasets import load_crystal_structures
+            from chemml.datasets import load_crystal_structures
             entries = load_crystal_structures()
         except Exception as err:
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(err).__name__ + ': ' + str(err.message)
@@ -158,12 +160,12 @@ class ConvertFile(BASE):
         self.paramFROMinput()
         # self.required('file_path',req=True)
         # file_path=self.inputs['file_path'].value
-        print 'from:', self.parameters['from_format']
-        print 'to:', self.parameters['to_format']
+        print( 'from:', self.parameters['from_format'])
+        print( 'to:', self.parameters['to_format'])
         # if 'file_path' not in self.parameters and '@' not in file_path:
             # self.parameters['file_path']=file_path
         try:
-            from cheml.initialization import ConvertFile
+            from chemml.initialization import ConvertFile
             model = ConvertFile(**self.parameters)
             converted_file_paths=model.convert()
         except Exception as err:
@@ -198,7 +200,7 @@ class scatter2D(BASE):
             msg = "@Task #%i(%s): the y header or position is required" % (self.iblock + 1, self.Task)
             raise NameError(msg)
         try:
-            from cheml.visualization import scatter2D
+            from chemml.visualization import scatter2D
             sc = scatter2D(**self.parameters)
             fig = sc.plot(dfx,dfy,x,y)
         except Exception as err:
@@ -226,7 +228,7 @@ class hist(BASE):
             msg = "@Task #%i(%s): the x header or position is required" % (self.iblock + 1, self.Task)
             raise NameError(msg)
         try:
-            from cheml.visualization import hist
+            from chemml.visualization import hist
             hg = hist(**self.parameters)
             fig = hg.plot(dfx, x)
         except Exception as err:
@@ -253,7 +255,7 @@ class decorator(BASE):
             if p in self.parameters:
                 font_params[p] = self.parameters.pop(p)
         try:
-            from cheml.visualization import decorator
+            from chemml.visualization import decorator
             dec = decorator(**self.parameters)
             dec.matplotlib_font(**font_params)
             fig = dec.fit(fig)
@@ -277,7 +279,7 @@ class SavePlot(BASE):
         fig = self.inputs['fig'].value
         # self.paramFROMinput()
         try:
-            from cheml.visualization import SavePlot
+            from chemml.visualization import SavePlot
             sp = SavePlot(**self.parameters)
             sp.save(fig, self.Base.output_directory)
         except Exception as err:
@@ -297,10 +299,10 @@ class PyScript(BASE):
         inputs = [token for token in self.inputs if self.inputs[token].value is not None]
         for token in inputs:
             code = compile("%s = self.inputs['%s'].value"%(token,token), "<string>", "exec")
-            exec code
+            exec(code)
         for line in sorted(self.parameters.keys()):
             code = compile(self.parameters[line], "<string>", "exec")
-            exec code
+            exec(code)
         order = [edge[1] for edge in self.Base.graph if edge[0] == self.iblock]
         for token in set(order):
             if token == 'ov1':
@@ -360,7 +362,7 @@ class RDKitFingerprint(BASE):
 
         # step5: import module and make APIs
         try:
-            from cheml.chem import RDKitFingerprint
+            from chemml.chem import RDKitFingerprint
             model = RDKitFingerprint(**self.parameters)
             model.MolfromFile(molfile,path,*arguments)
         except Exception as err:
@@ -390,7 +392,7 @@ class Dragon(BASE):
         # step1: check inputs
         # step2: assign inputs to parameters if necessary (param = @token)
         self.paramFROMinput()
-        print 'molfile:', self.parameters['molFile']
+        print ('molfile:', self.parameters['molFile'])
 
         # step3: check the dimension of input data frame
         # step4: extract  parameters
@@ -408,7 +410,7 @@ class Dragon(BASE):
 
         # step5: import module and make APIs
         try:
-            from cheml.chem import Dragon
+            from chemml.chem import Dragon
             model = Dragon(**self.parameters)
             model.script_wizard(script, output_directory)
             model.run()
@@ -440,11 +442,11 @@ class CoulombMatrix(BASE):
         self.required('molecules', req=True)
         molecules = self.inputs['molecules'].value
         try:
-            from cheml.chem import CoulombMatrix
+            from chemml.chem import CoulombMatrix
             model = CoulombMatrix(**self.parameters)
             df = model.represent(molecules)
         except Exception as err:
-            print err.message
+            print (err.message)
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(err).__name__ + ': ' + str(err.message)
             raise TypeError(msg)
         order = [edge[1] for edge in self.Base.graph if edge[0] == self.iblock]
@@ -465,7 +467,7 @@ class BagofBonds(BASE):
         self.required('molecules', req=True)
         molecules = self.inputs['molecules'].value
         try:
-            from cheml.chem import BagofBonds
+            from chemml.chem import BagofBonds
             model = BagofBonds(**self.parameters)
             df = model.represent(molecules)
         except Exception as err:
@@ -493,7 +495,7 @@ class DistanceMatrix(BASE):
         # check inputs
         self.required('df', req=True)
         try:
-            from cheml.chem import DistanceMatrix
+            from chemml.chem import DistanceMatrix
             model = DistanceMatrix(**self.parameters)
         except Exception as err:
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(err).__name__ + ': ' + str(err.message)
@@ -517,7 +519,7 @@ class APEAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import APEAttributeGenerator
+            from chemml.chem.magpie_python import APEAttributeGenerator
             ape = APEAttributeGenerator()
             if 'packing_threshold' in self.parameters:
                 if self.parameters['packing_threshold']:
@@ -553,7 +555,7 @@ class ChargeDependentAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import ChargeDependentAttributeGenerator
+            from chemml.chem.magpie_python import ChargeDependentAttributeGenerator
             cd = ChargeDependentAttributeGenerator()
             df = cd.generate_features(entries)
         except Exception as err:
@@ -580,7 +582,7 @@ class ElementalPropertyAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import ElementalPropertyAttributeGenerator
+            from chemml.chem.magpie_python import ElementalPropertyAttributeGenerator
             if 'elemental_properties' in self.parameters:
                 elemental_properties = self.parameters.pop('elemental_properties')
             ep = ElementalPropertyAttributeGenerator(**self.parameters)
@@ -611,7 +613,7 @@ class ElementFractionAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import ElementFractionAttributeGenerator
+            from chemml.chem.magpie_python import ElementFractionAttributeGenerator
             ef = ElementFractionAttributeGenerator()
             df = ef.generate_features(entries)
         except Exception as err:
@@ -638,7 +640,7 @@ class ElementPairPropertyAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import ElementPairPropertyAttributeGenerator
+            from chemml.chem.magpie_python import ElementPairPropertyAttributeGenerator
             epp = ElementPairPropertyAttributeGenerator()
             if 'elemental_pair_properties' in self.parameters:
                 if self.parameters['elemental_pair_properties']:
@@ -669,7 +671,7 @@ class GCLPAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import GCLPAttributeGenerator
+            from chemml.chem.magpie_python import GCLPAttributeGenerator
             gclp = GCLPAttributeGenerator()
             if 'count_phases' in self.parameters and self.parameters[
                 'count_phases']:
@@ -705,7 +707,7 @@ class IonicCompoundProximityAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import IonicCompoundProximityAttributeGenerator
+            from chemml.chem.magpie_python import IonicCompoundProximityAttributeGenerator
             icp = IonicCompoundProximityAttributeGenerator()
             if 'max_formula_unit' in self.parameters and self.parameters[
                 'max_formula_unit'] != 14:
@@ -735,7 +737,7 @@ class IonicityAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import IonicityAttributeGenerator
+            from chemml.chem.magpie_python import IonicityAttributeGenerator
             ig = IonicityAttributeGenerator()
             df = ig.generate_features(entries)
         except Exception as err:
@@ -762,7 +764,7 @@ class MeredigAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import MeredigAttributeGenerator
+            from chemml.chem.magpie_python import MeredigAttributeGenerator
             ma = MeredigAttributeGenerator()
             df = ma.generate_features(entries)
         except Exception as err:
@@ -789,7 +791,7 @@ class StoichiometricAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import StoichiometricAttributeGenerator
+            from chemml.chem.magpie_python import StoichiometricAttributeGenerator
             sg = StoichiometricAttributeGenerator()
             if 'p_norms' in self.parameters:
                 if self.parameters['p_norms']:
@@ -819,7 +821,7 @@ class ValenceShellAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import ValenceShellAttributeGenerator
+            from chemml.chem.magpie_python import ValenceShellAttributeGenerator
             vs = ValenceShellAttributeGenerator()
             df = vs.generate_features(entries)
         except Exception as err:
@@ -846,7 +848,7 @@ class YangOmegaAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import YangOmegaAttributeGenerator
+            from chemml.chem.magpie_python import YangOmegaAttributeGenerator
             yo = YangOmegaAttributeGenerator()
             df = yo.generate_features(entries)
         except Exception as err:
@@ -873,7 +875,7 @@ class APRDFAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import APRDFAttributeGenerator
+            from chemml.chem.magpie_python import APRDFAttributeGenerator
             aprdf = APRDFAttributeGenerator()
             if 'cut_off_distance' in self.parameters:
                 if self.parameters['cut_off_distance'] != 10.0:
@@ -913,7 +915,7 @@ class ChemicalOrderingAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import ChemicalOrderingAttributeGenerator
+            from chemml.chem.magpie_python import ChemicalOrderingAttributeGenerator
             co = ChemicalOrderingAttributeGenerator()
             if 'shells' in self.parameters:
                 if self.parameters['shells']:
@@ -949,7 +951,7 @@ class CoordinationNumberAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import CoordinationNumberAttributeGenerator
+            from chemml.chem.magpie_python import CoordinationNumberAttributeGenerator
             cn = CoordinationNumberAttributeGenerator()
             df = cn.generate_features(entries)
         except Exception as err:
@@ -976,7 +978,7 @@ class CoulombMatrixAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import CoulombMatrixAttributeGenerator
+            from chemml.chem.magpie_python import CoulombMatrixAttributeGenerator
             cm = CoulombMatrixAttributeGenerator()
             if 'n_eigenvalues' in self.parameters:
                 if self.parameters['n_eigenvalues']:
@@ -1008,7 +1010,7 @@ class EffectiveCoordinationNumberAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import EffectiveCoordinationNumberAttributeGenerator
+            from chemml.chem.magpie_python import EffectiveCoordinationNumberAttributeGenerator
             ecn = EffectiveCoordinationNumberAttributeGenerator()
             df = ecn.generate_features(entries)
         except Exception as err:
@@ -1035,7 +1037,7 @@ class LatticeSimilarityAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import LatticeSimilarityAttributeGenerator
+            from chemml.chem.magpie_python import LatticeSimilarityAttributeGenerator
             ls = LatticeSimilarityAttributeGenerator()
             df = ls.generate_features(entries)
         except Exception as err:
@@ -1062,7 +1064,7 @@ class LocalPropertyDifferenceAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import LocalPropertyDifferenceAttributeGenerator
+            from chemml.chem.magpie_python import LocalPropertyDifferenceAttributeGenerator
             lpd = LocalPropertyDifferenceAttributeGenerator()
             if 'shells' in self.parameters:
                 if not (len(self.parameters['shells']) == 1 and
@@ -1095,7 +1097,7 @@ class LocalPropertyVarianceAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import LocalPropertyVarianceAttributeGenerator
+            from chemml.chem.magpie_python import LocalPropertyVarianceAttributeGenerator
             lpv = LocalPropertyVarianceAttributeGenerator()
             if 'shells' in self.parameters:
                 if not (len(self.parameters['shells']) == 1 and
@@ -1128,7 +1130,7 @@ class PackingEfficiencyAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import PackingEfficiencyAttributeGenerator
+            from chemml.chem.magpie_python import PackingEfficiencyAttributeGenerator
             pe = PackingEfficiencyAttributeGenerator()
             df = pe.generate_features(entries)
         except Exception as err:
@@ -1155,7 +1157,7 @@ class PRDFAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import PRDFAttributeGenerator
+            from chemml.chem.magpie_python import PRDFAttributeGenerator
             prdf = PRDFAttributeGenerator()
             if 'cut_off_distance' in self.parameters:
                 if self.parameters['cut_off_distance'] != 10.0:
@@ -1191,7 +1193,7 @@ class StructuralHeterogeneityAttributeGenerator(BASE):
         self.required('entries', req=True)
         entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import StructuralHeterogeneityAttributeGenerator
+            from chemml.chem.magpie_python import StructuralHeterogeneityAttributeGenerator
             sh = StructuralHeterogeneityAttributeGenerator()
             df = sh.generate_features(entries)
         except Exception as err:
@@ -1218,7 +1220,7 @@ class CompositionEntry(BASE):
         # self.required('entries', req=True)
         # entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import CompositionEntry
+            from chemml.chem.magpie_python import CompositionEntry
             composition_list = CompositionEntry.import_composition_list(**self.parameters)
         except Exception as err:
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(
@@ -1244,7 +1246,7 @@ class CrystalStructureEntry(BASE):
         # self.required('entries', req=True)
         # entries = self.inputs['entries'].value
         try:
-            from cheml.chem.magpie_python import CrystalStructureEntry
+            from chemml.chem.magpie_python import CrystalStructureEntry
             structures_list = CrystalStructureEntry.import_structures_list(**self.parameters)
         except Exception as err:
             msg = '@Task #%i(%s): ' % (self.iblock + 1, self.Task) + type(
@@ -1280,7 +1282,7 @@ class MissingValues(BASE):
 
         # process
         try:
-            from cheml.preprocessing import MissingValues
+            from chemml.preprocessing import MissingValues
             if method is None:
                 model = MissingValues(**self.parameters)
             elif method == 'fit_transform':
@@ -1330,7 +1332,7 @@ class ConstantColumns(BASE):
 
         # step4: import module and make APIs
         try:
-            from cheml.preprocessing import ConstantColumns
+            from chemml.preprocessing import ConstantColumns
             if method is None:
                 model = ConstantColumns()
             elif method == 'fit_transform':
@@ -1385,7 +1387,7 @@ class Outliers(BASE):
 
         # step4: import module and make APIs
         try:
-            from cheml.preprocessing import Outliers
+            from chemml.preprocessing import Outliers
             if method is None:
                 model = Outliers(**self.parameters)
             elif method == 'fit_transform':
@@ -1435,13 +1437,13 @@ class Outliers(BASE):
 #     def legal_IO(self):
 #         self.legal_inputs = {'dfx': None, 'dfy': None}
 #         self.legal_outputs = {'dfx': None, 'dfy': None, 'api': None}
-#         requirements = ['cheml', 'pandas']
+#         requirements = ['chemml', 'pandas']
 #         self.Base.requirements += [i for i in requirements if i not in self.Base.requirements]
 #
 #     def fit(self):
-#         from cheml.initializtion import Trimmer
-#         dfx = self.type_check('dfx', cheml_type='dfx', req=True, py_type=pd.DataFrame)
-#         dfy = self.type_check('dfy', cheml_type='dfy', req=True, py_type=pd.DataFrame)
+#         from chemml.initializtion import Trimmer
+#         dfx = self.type_check('dfx', chemml_type='dfx', req=True, py_type=pd.DataFrame)
+#         dfy = self.type_check('dfy', chemml_type='dfy', req=True, py_type=pd.DataFrame)
 #         try:
 #             model = Trimmer(**self.parameters)
 #             dfx, dfy = model.fit_transform(dfx,dfy)
@@ -1470,13 +1472,13 @@ class Outliers(BASE):
 #     def legal_IO(self):
 #         self.legal_inputs = {'dfx': None, 'dfy': None}
 #         self.legal_outputs = {'dfx': None, 'dfy': None, 'api': None}
-#         requirements = ['cheml', 'pandas']
+#         requirements = ['chemml', 'pandas']
 #         self.Base.requirements += [i for i in requirements if i not in self.Base.requirements]
 #
 #     def fit(self):
-#         from cheml.initializtion import Uniformer
-#         dfx = self.type_check('dfx', cheml_type='dfx', req=True, py_type=pd.DataFrame)
-#         dfy = self.type_check('dfy', cheml_type='dfy', req=True, py_type=pd.DataFrame)
+#         from chemml.initializtion import Uniformer
+#         dfx = self.type_check('dfx', chemml_type='dfx', req=True, py_type=pd.DataFrame)
+#         dfy = self.type_check('dfy', chemml_type='dfy', req=True, py_type=pd.DataFrame)
 #         try:
 #             model = Uniformer(**self.parameters)
 #             dfx, dfy = model.fit_transform(dfx, dfy)
@@ -1518,7 +1520,7 @@ class Split(BASE):
 
         # step4: import module and make APIs
         try:
-            from cheml.initialization import Split
+            from chemml.initialization import Split
             split = Split(**self.parameters)
             df1, df2 = split.fit(df)
         except Exception as err:
@@ -1561,7 +1563,7 @@ class MLP(BASE):
 
         # step4: import module and make APIs
         try:
-            from cheml.nn.keras import MLP
+            from chemml.nn.keras import MLP
             if method is None:
                 model = MLP(**self.parameters)
             elif method == 'fit':
@@ -1615,7 +1617,7 @@ class MLP_sklearn(BASE):
 
         # step4: import module and make APIs
         try:
-            from cheml.nn.keras import MLP_sklearn
+            from chemml.nn.keras import MLP_sklearn
             if method is None:
                 model = MLP_sklearn(**self.parameters)
             elif method == 'fit':
@@ -1676,7 +1678,7 @@ class MLP_sklearn(BASE):
 #
 #         # step4: import module and make APIs
 #         try:
-#             from cheml.nn import mlp_hogwild
+#             from chemml.nn import mlp_hogwild
 #             if method is None:
 #                 model = mlp_hogwild(**self.parameters)
 #             elif method == 'fit':
@@ -1721,25 +1723,25 @@ class MLP_sklearn(BASE):
 #
 # class mlp_dsgd(BASE):
 #     # must be run with slurm script
-#     # Todo: first fix the slurm script function at cheml.initialization
+#     # Todo: first fix the slurm script function at chemml.initialization
 #     # Todo: then embede the slurm commands in this class to run the slurm script
 #     # Todo: or make the slurm script in this function too
 #     def legal_IO(self):
 #         self.legal_inputs = {'dfx_train': None, 'dfx_test': None, 'dfy_train': None, 'dfy_test': None}
 #         self.legal_outputs = {'dfy_train_pred': None, 'model': None}
-#         requirements = ['cheml', 'pandas']
+#         requirements = ['chemml', 'pandas']
 #         self.Base.requirements += [i for i in requirements if i not in self.Base.requirements]
 #
 #     def fit(self):
-#         from cheml.nn import nn_dsgd
-#         cheml_type = "%s_%s" % (self.Base.graph_info[self.iblock][0], self.Base.graph_info[self.iblock][1])
-#         self.Base.cheml_type['regressor'].append(cheml_type)
-#         dfx_train = self.type_check('dfx_train', cheml_type='df', req=True, py_type=pd.DataFrame).values
-#         dfx_test = self.type_check('dfx_test', cheml_type='df', req=True, py_type=pd.DataFrame).values
-#         dfy_train = self.type_check('dfy_train', cheml_type='df', req=True, py_type=pd.DataFrame)
+#         from chemml.nn import nn_dsgd
+#         chemml_type = "%s_%s" % (self.Base.graph_info[self.iblock][0], self.Base.graph_info[self.iblock][1])
+#         self.Base.chemml_type['regressor'].append(chemml_type)
+#         dfx_train = self.type_check('dfx_train', chemml_type='df', req=True, py_type=pd.DataFrame).values
+#         dfx_test = self.type_check('dfx_test', chemml_type='df', req=True, py_type=pd.DataFrame).values
+#         dfy_train = self.type_check('dfy_train', chemml_type='df', req=True, py_type=pd.DataFrame)
 #         dfy_header = dfy_train.columns
 #         dfy_train = dfy_train.values
-#         dfy_test = self.type_check('dfy_test', cheml_type='df', req=True, py_type=pd.DataFrame).values
+#         dfy_test = self.type_check('dfy_test', chemml_type='df', req=True, py_type=pd.DataFrame).values
 #
 #         try:
 #             model = nn_psgd.train(dfx_train,dfx_test,dfy_train,dfy_test,**self.parameters)
@@ -1832,7 +1834,7 @@ class GA_DEAP(BASE):
 
         # step4: import module and make APIs
         try:
-            from cheml.search import GA_DEAP
+            from chemml.search import GA_DEAP
             model = GA_DEAP(**self.parameters)
             model.fit()
             if method == 'algorithm_1':
@@ -1889,7 +1891,7 @@ class SaveFile(BASE):
         # step3: check the dimension of input data frame
         # step4: import module and make APIs
         try:
-            from cheml.initialization import SaveFile
+            from chemeco.initialization import SaveFile
             model = SaveFile(**self.parameters)
             model.fit(df, self.Base.output_directory)
         except Exception as err:

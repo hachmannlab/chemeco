@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 import pandas as pd
 
@@ -22,7 +24,7 @@ class read_table(BASE):
             raise TypeError(msg)
 
         # step5: process
-        print '(rows, columns): ', df.shape
+        print( '(rows, columns): ', df.shape)
         # if 'header' in self.parameters and self.parameters['header'] is not None:
         #     print 'headers: ', list(df.columns)
 
@@ -55,7 +57,7 @@ class read_excel(BASE):
             raise TypeError(msg)
 
         # step5: process
-        print '(rows, columns): ', df.shape
+        print( '(rows, columns): ', df.shape)
         # if 'header' in self.parameters and self.parameters['header'] is not None:
         #     print 'header: ', df.columns
 
@@ -197,7 +199,7 @@ class to_csv(BASE):
             raise TypeError(msg)
 
         # step5: process
-        print '(rows, columns): ', df.shape
+        print( '(rows, columns): ', df.shape)
         # if 'header' in self.parameters and self.parameters['header'] is not None:
         #     print 'headers: ', list(df.columns)
 

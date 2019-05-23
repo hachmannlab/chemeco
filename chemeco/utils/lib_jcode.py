@@ -1,4 +1,7 @@
-#!/usr/bin/env python
+from __future__ import print_function
+from builtins import range
+
+import numpy as np
 
 _LIB_NAME = "lib_jcode"
 _LIB_VERSION = "v1.18.0"
@@ -70,9 +73,9 @@ def banner(logfile, SCRIPT_NAME, SCRIPT_VERSION, REVISION_DATE, AUTHOR, DESCRIPT
     str.append(DESCRIPTION)
     str.append("")
 
-    print 
+    print ()
     for line in str:
-        print line
+        print (line)
         logfile.write(line + '\n')
 
 ##################################################################################################
@@ -83,21 +86,21 @@ def print_invoked_opts(logfile,opts,commline_list=[]):
     """    
     if len(commline_list) != 0:
         tmp_str = "Invoked command line: "
-        print tmp_str
+        print (tmp_str)
         logfile.write(tmp_str + '\n')
         tmp_str = ' '.join(commline_list)
-        print tmp_str
+        print (tmp_str)
         print 
         logfile.write(tmp_str + '\n\n')
         
     tmp_str = "Invoked options: "
-    print tmp_str
+    print (tmp_str)
     logfile.write(tmp_str + '\n')
     for key, value in opts.__dict__.items():
         tmp_str = '   ' + key + ': ' + str(value)   
-        print tmp_str    
+        print (tmp_str)
         logfile.write(tmp_str + '\n')
-    print
+    print()
     logfile.write('\n')
 
 ##################################################################################################
@@ -422,10 +425,10 @@ def bin_file_format_change(infile_namestr,outfile_namestr,mode):
 # TODO: this needs to be a binary write
     outfile = open(outfile_namestr,'wb',0)    
     if mode == 'sp2dp':
-        in_bin = fromstring(in_bin_str,float32)
+        in_bin = fromstring(in_bin_str,np.float32)
         sys.exit()
     elif mode == 'dp2sp':
-        in_bin = fromstring(in_bin_str,float64)
+        in_bin = fromstring(in_bin_str,np.float64)
         sys.exit()
     else:
         sys.exit("Unknown binary format conversion mode.")
@@ -522,5 +525,5 @@ def list_chunks(l, n):
     """ Yield successive n-sized chunks from l.
         Found on: http://stackoverflow.com/questions/312443/how-do-you-split-a-list-into-evenly-sized-chunks-in-python
     """
-    for i in xrange(0, len(l), n):
+    for i in range(0, len(l), n):
         yield l[i:i+n]

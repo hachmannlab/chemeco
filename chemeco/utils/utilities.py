@@ -1,6 +1,10 @@
+from __future__ import print_function
+from builtins import range
+
 import datetime
 import numpy as np
 import sys
+import warnings
 
 def list_del_indices(mylist,indices):
     for index in sorted(indices, reverse=True):
@@ -104,7 +108,7 @@ def chunk(xs, n, X=None, Y=None):
     # random.shuffle(ys)
     size = len(ys) // n
     leftovers= ys[size*n:]
-    for c in xrange(n):
+    for c in range(n):
         if leftovers:
            extra= [ leftovers.pop() ] 
         else:
@@ -137,7 +141,7 @@ def choice(X, Y=None, n=0.1, replace=False):
     if not isinstance(n,int):
             n = int(n*len(X))
     ind_sample = np.random.choice(len(X),n,replace=replace)
-    ind_out = np.array([i for i in xrange(len(X)) if i not in ind_sample])
+    ind_out = np.array([i for i in range(len(X)) if i not in ind_sample])
     X_sample = X[ind_sample]
     X_out = X[ind_out]
     if isinstance(Y,np.ndarray):

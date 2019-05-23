@@ -354,6 +354,7 @@ class StratifiedShuffleSplit(object):
         test_size = Parameter('test_size', 'default')
         train_size = Parameter('train_size', None)
         random_state = Parameter('random_state', None)
+
 class train_test_split(object):
     task = 'Prepare'
     subtask = 'split'
@@ -381,6 +382,7 @@ class train_test_split(object):
         random_state = Parameter('random_state', None)
         shuffle = Parameter('shuffle', True)
         stratify = Parameter('stratify', None)
+
 class KFold(object):
     task = 'Prepare'
     subtask = 'split'
@@ -403,6 +405,7 @@ class KFold(object):
         n_splits = Parameter('n_splits', 3)
         random_state = Parameter('random_state', None)
         shuffle = Parameter('shuffle', False)
+
 class LeaveOneOut(object):
     task = 'Prepare'
     subtask = 'split'

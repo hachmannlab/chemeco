@@ -1,6 +1,5 @@
 import setuptools
 from os import path
-# import versioneer
 import chemeco
 
 here = path.abspath(path.dirname(__file__))
@@ -24,7 +23,7 @@ if __name__ == "__main__":
         },
         license='BSD-3C',
         packages=setuptools.find_packages(),
-        scripts=['bin/chemeco'],
+        scripts=['lib/chemecoshell'],
         install_requires=[
             'future',
             'six',
@@ -32,6 +31,7 @@ if __name__ == "__main__":
             'pandas',
             'graphviz',
             'ipywidgets',
+            'widgetsnbextension',
             'chemml',
             'scikit-learn'
         ],
@@ -58,8 +58,9 @@ if __name__ == "__main__":
         classifiers=[
             'Development Status :: 4 - Beta',
             'Intended Audience :: Science/Research',
-            'Programming Language :: Python :: 2.7',
+            # 'Programming Language :: Python :: 2.7',
             'Programming Language :: Python :: 3.5',
+            'Programming Language :: Python :: 3.6'
         ],
         zip_safe=False,
     )

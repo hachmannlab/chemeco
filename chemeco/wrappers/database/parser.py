@@ -1,6 +1,6 @@
 import inspect
 
-from cheml.wrappers.database.unhooked import sklearn_db
+from chemeco.wrappers.database.unhooked import sklearn_db
 
 file = open('sklearndb.py','w')
 

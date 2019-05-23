@@ -6,7 +6,7 @@ import numpy as np
 import warnings
 import fnmatch
 
-from chemml.utils.utilities import std_datetime_str
+from chemeco.utils.utilities import std_datetime_str
 
 
 class Split(object):
@@ -225,81 +225,81 @@ class XYZreader(object):
         self.max_n_atoms = max_nAtoms
         return molecules
 
-class ConvertFile(object):
-    """(ConvertFile)
-    Specify file path, 'from_format' and 'to_format' to convert a file form 'from_format' to 'to_format'
-    using openbabel (https://openbabel.org/wiki/Babel).
-
-    Parameters:
-    ----------
-    file_path : string or dictionary
-        string or dictionary containing paths of files that need to be converted
-
-    from_format: string
-        String of letters that specify the format of the file that needs to be converted.
-        This will be checked against 'file_path' that is provided by the user.
-        If the file_path does not contain 'from_format' an error message will be raised.
-        List of possible 'from_format's are on https://openbabel.org/wiki/Babel
-
-    to_format: string
-        String of letters that specify the target file format or the desired format.
-        An openbabel command is generated which converts the files specified by 'file_path' to the target format.
-        List of possible 'to_format's are on https://openbabel.org/wiki/Babel
-
-    Returns:
-    ------
-    converted_file_paths: dictionary
-        dictionary of converted file paths, in the same format of XYZreader output: {index:{'file':""}}
-
-    Examples:
-    --------
-    >>> from chemml.datasets import load_xyz_polarizability
-    >>> coordinates,polarizability = load_xyz_polarizability()
-    >>> coordinates
-    {1: {'file': 'cheml/datasets/data/organic_xyz/1_opt.xyz', ...
-    >>> from chemml.initialization import ConvertFile
-    >>> model = ConvertFile(file_path=coordinates,from_format='xyz',to_format='cml')
-    >>> converted_file_paths = model.convert()
-    {1: {'file': 'cheml/datasets/data/organic_xyz/1_opt.cml'}, 2: ...
-
-    """
-
-    def __init__(self,file_path,from_format,to_format):
-        self.file_path=file_path
-        self.from_format=from_format
-        self.to_format=to_format
-
-    def convert(self):
-        converted_file_paths={}
-        if isinstance(self.file_path,str):
-            if not self.from_format == self.file_path[-len(self.from_format):]:
-                msg = 'file format is not the same as from_format'
-                raise ValueError(msg)
-
-            else:
-                ob_from_format = '-i' + self.from_format
-                ob_to_format = '-o' + self.to_format
-                path=self.file_path[:self.file_path.rfind('.')+1]
-                command='babel ' + ob_from_format + ' ' + self.file_path + ' ' + ob_to_format + ' ' + path+self.to_format
-                print(command)
-                os.system(command)
-                converted_file_paths[1] = {'file':path+self.to_format}
-
-        elif isinstance(self.file_path,dict):
-            for it in range(1,len(self.file_path)+1):
-                fpath=self.file_path[it]['file']
-                if not fpath[-len(self.from_format):] == self.from_format:
-                    msg='file format is not the same as from_format'
-                    raise ValueError(msg)
-                else:
-                    ob_from_format = '-i' + self.from_format
-                    ob_to_format = '-o' + self.to_format
-                    path=fpath[:fpath.rfind('.')+1]
-                    command = 'babel ' + ob_from_format + ' ' + fpath + ' ' + ob_to_format + ' ' + path + self.to_format
-                    os.system(command)
-                    converted_file_paths[it] = {'file':path+self.to_format}
-
-        return converted_file_paths
+# class ConvertFile(object):
+#     """(ConvertFile)
+#     Specify file path, 'from_format' and 'to_format' to convert a file form 'from_format' to 'to_format'
+#     using openbabel (https://openbabel.org/wiki/Babel).
+#
+#     Parameters:
+#     ----------
+#     file_path : string or dictionary
+#         string or dictionary containing paths of files that need to be converted
+#
+#     from_format: string
+#         String of letters that specify the format of the file that needs to be converted.
+#         This will be checked against 'file_path' that is provided by the user.
+#         If the file_path does not contain 'from_format' an error message will be raised.
+#         List of possible 'from_format's are on https://openbabel.org/wiki/Babel
+#
+#     to_format: string
+#         String of letters that specify the target file format or the desired format.
+#         An openbabel command is generated which converts the files specified by 'file_path' to the target format.
+#         List of possible 'to_format's are on https://openbabel.org/wiki/Babel
+#
+#     Returns:
+#     ------
+#     converted_file_paths: dictionary
+#         dictionary of converted file paths, in the same format of XYZreader output: {index:{'file':""}}
+#
+#     Examples:
+#     --------
+#     >>> from chemml.datasets import load_xyz_polarizability
+#     >>> coordinates,polarizability = load_xyz_polarizability()
+#     >>> coordinates
+#     {1: {'file': 'cheml/datasets/data/organic_xyz/1_opt.xyz', ...
+#     >>> from chemml.initialization import ConvertFile
+#     >>> model = ConvertFile(file_path=coordinates,from_format='xyz',to_format='cml')
+#     >>> converted_file_paths = model.convert()
+#     {1: {'file': 'cheml/datasets/data/organic_xyz/1_opt.cml'}, 2: ...
+#
+#     """
+#
+#     def __init__(self,file_path,from_format,to_format):
+#         self.file_path=file_path
+#         self.from_format=from_format
+#         self.to_format=to_format
+#
+#     def convert(self):
+#         converted_file_paths={}
+#         if isinstance(self.file_path,str):
+#             if not self.from_format == self.file_path[-len(self.from_format):]:
+#                 msg = 'file format is not the same as from_format'
+#                 raise ValueError(msg)
+#
+#             else:
+#                 ob_from_format = '-i' + self.from_format
+#                 ob_to_format = '-o' + self.to_format
+#                 path=self.file_path[:self.file_path.rfind('.')+1]
+#                 command='babel ' + ob_from_format + ' ' + self.file_path + ' ' + ob_to_format + ' ' + path+self.to_format
+#                 print(command)
+#                 os.system(command)
+#                 converted_file_paths[1] = {'file':path+self.to_format}
+#
+#         elif isinstance(self.file_path,dict):
+#             for it in range(1,len(self.file_path)+1):
+#                 fpath=self.file_path[it]['file']
+#                 if not fpath[-len(self.from_format):] == self.from_format:
+#                     msg='file format is not the same as from_format'
+#                     raise ValueError(msg)
+#                 else:
+#                     ob_from_format = '-i' + self.from_format
+#                     ob_to_format = '-o' + self.to_format
+#                     path=fpath[:fpath.rfind('.')+1]
+#                     command = 'babel ' + ob_from_format + ' ' + fpath + ' ' + ob_to_format + ' ' + path + self.to_format
+#                     os.system(command)
+#                     converted_file_paths[it] = {'file':path+self.to_format}
+#
+#         return converted_file_paths
 
 class SaveFile(object):
     """

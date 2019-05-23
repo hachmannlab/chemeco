@@ -1,6 +1,6 @@
-import sklearn_db
-import cheml_db
-import pandas_db
+from chemeco.wrappers.database import sklearn_db
+from chemeco.wrappers.database import cheml_db
+from chemeco.wrappers.database import pandas_db
 import inspect
 
 def tshf():
