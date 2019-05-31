@@ -13,3 +13,6 @@ The main focus of those packages is on the molecular and materials data-driven r
 That's why the name of all these packages express the word chem (chemistry).
 However, we later used the code structure to interface with even more Python libraries or commercial software.
 Thus, ChemEco now is able to carry out data mining and machine learning tasks on a broader range of domain applications.
+
+## Progress
+This repository is still in transition from [ChemML](https://github.com/hachmannlab/chemml) library. 
