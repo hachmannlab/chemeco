@@ -23,7 +23,7 @@ if __name__ == "__main__":
         },
         license='BSD-3C',
         packages=setuptools.find_packages(),
-        scripts=['lib/chemecoshell'],
+        scripts=['lib/chemecoshell', 'webapp/chemecoweb'],
         install_requires=[
             'future',
             'six',
@@ -33,7 +33,10 @@ if __name__ == "__main__":
             'ipywidgets',
             'widgetsnbextension',
             'chemml',
-            'scikit-learn'
+            'scikit-learn',
+            'plotly',
+            'dash == 0.42.0',
+            'dash-daq == 0.1.0'
         ],
         extras_require={
             'docs': [
